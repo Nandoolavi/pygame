@@ -46,17 +46,29 @@
 
 #a = int(input("quantas anos vc ter"))
 
-def tabuada():
-    a = int(input('qual valor voce deseja usar'))
-    print(f'{a} X 1 =' + str(a *1))
-    print(f'{a} X 2 =' + str(a *2))
-    print(f'{a} X 3 =' + str(a *3))
-    print(f'{a} X 4 =' + str(a *4))
-    print(f'{a} X 5 =' + str(a *5))
-    print(f'{a} X 6 =' + str(a *6))
-    print(f'{a} X 7 =' + str(a *7))
-    print(f'{a} X 8 =' + str(a *8))
-    print(f'{a} X 9 =' + str(a *9))
-    print(f'{a} X 10 =' + str(a *10))
+#def tabuada():
+#   a = int(input('qual valor voce deseja usar'))
+#   print(f'{a} X 1 =' + str(a *1))
+#   print(f'{a} X 2 =' + str(a *2))
+#   print(f'{a} X 3 =' + str(a *3))
+#   print(f'{a} X 4 =' + str(a *4))
+#   print(f'{a} X 5 =' + str(a *5))
+#   print(f'{a} X 6 =' + str(a *6))
+#   print(f'{a} X 7 =' + str(a *7))
+#   print(f'{a} X 8 =' + str(a *8))
+#   print(f'{a} X 9 =' + str(a *9))
+#   print(f'{a} X 10 =' + str(a *10))
+#
+#tabuada()
 
-tabuada()
+class animal:
+    def __init__ (self, filo, cor, sexo):
+        self.filo = filo
+        self.cor = cor
+        self.sexo = sexo
+
+    def estudar(self):
+        print (f'seu animal é um {self.filo} de cor {self.cor} e de sexo {self.sexo}')
+
+raposa = animal('felino', 'preta', 'masculino')
+raposa.estudar()
