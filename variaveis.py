@@ -136,32 +136,85 @@
 #        if event.type == pygame.QUIT:
 #            running = False
 
-from pygame.locals import *
-import pygame 
+#import pygame
+#from pygame.Locals import *
+#import random
+#
+#def on_grid_random()
+#    x = random.randint(0,59)
+#    y = random.randint(0,59)
+#     return (x * 10, y * 10)
+#UP = 0
+#RIGHT = 1
+#DOWN = 2
+#LEFT = 3
+#
+#pygame.init()
+#screen = pygame.display.set_mode((600, 600))
+#pygame.display.set_caption
+#
+#for i in range(Len  )
 
-WIDTH = 500
-HEIGHT = 400
-FPS = 60
+import pygame as pg
+pg.init()
+#
+#screen = pygame.display.set_mode((625, 220))
+#screen.fill((255, 255, 255)) # Fundo branco
+#
+#while True:
+#
+#    pygame.draw.rect(screen, (255, 0, 0), (50, 20, 120, 100))
+#    pygame.draw.rect(screen, (0, 255, 0), (100, 60, 120, 100))
+#    pygame.draw.rect(screen, (0, 0, 255), (150, 100, 120, 100))
+#
+#    pygame.draw.rect(screen, (255, 0, 0), (350, 20, 120, 100),1)
+#    pygame.draw.rect(screen, (0, 255, 0), (400, 60, 120, 100),4)
+#    pygame.draw.rect(screen, (0, 0, 255), (450, 100, 120, 100),8)
+#
+#    pygame.display.flip()
+#
+#    for event in  pygame.event.get():
+#        if event.type == pygame.QUIT:
+#            exit()
+#
+from math import pi
 
-BLACK = (13, 13, 13)
-WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+YELLOW = (0, 255, 255)
+WHITE = (255, 255, 255)
+BLUE= (0, 0, 255)
 GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
+BLACK = (0, 0, 0)
 
-pygame.init()
-pygame.mixer.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Título game")
-clock = pygame.time.Clock()
+width = 600
+height = 450
+screen = pg.display.set_mode((width, height))
 
-running = True
-while running:
-    clock.tick(FPS)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    sceen.fill(BLACK)
-    pygame.display.flip()
 
-pygame.quit()
+retangulos = [
+    pg.Rect(20, 20, 100, 50),
+    pg.Rect(20, 90, 50, 50),
+    pg.Rect(500, 30, 80, 60)
+]
+
+while True:
+    screen.fill(BLACK)
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            exit()
+
+    for retangulo in retangulos:
+        pg.draw.rect(screen, BLUE, retangulo)
+
+    pg.draw.rect(screen, GREEN, [115, 280, 70, 40])
+    pg.draw.rect(screen, RED, [115, 280, 71, 41], 2)
+    pg.draw.circle(screen, YELLOW, (325,70), 30)
+    pg.draw.circle(screen, BLUE, [250, 250], 25, True)
+    pg.draw.ellipse(screen, WHITE, (250, 300, 100, 100))
+    pg.draw.arc(screen, RED, [430, 150, 150, 125], pi/100, 1.13*pi, 2)
+    pg.draw.line(screen, BLUE, (0, height-100), (width, height-100), 5)
+    pg.draw.aaline(screen, GREEN, (0, height-200), (width, height-200))
+    pg.draw.lines(screen, WHITE, False, [[400, 400], [400, 20], [200, 20]], 2)
+    pg.draw.polygon(screen, YELLOW, [[140, 120], [100, 200], [300, 200]])
+    pg.draw.polygon(screen, GREEN, [[140, 120], [100, 200], [300,200]])
+    pg.display.update()
