@@ -155,8 +155,7 @@
 #
 #for i in range(Len  )
 
-import pygame as pg
-pg.init()
+
 #
 #screen = pygame.display.set_mode((625, 220))
 #screen.fill((255, 255, 255)) # Fundo branco
@@ -177,7 +176,12 @@ pg.init()
 #        if event.type == pygame.QUIT:
 #            exit()
 #
-from math import pi
+#from math import pi
+
+
+from dataclasses import dataclass
+import pygame as pg
+pg.init()
 
 RED = (255, 0, 0)
 YELLOW = (0, 255, 255)
@@ -186,35 +190,88 @@ BLUE= (0, 0, 255)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 
-width = 600
-height = 450
+width = 450
+height = 200
 screen = pg.display.set_mode((width, height))
 
+clock = pg.time.Clock()
+pg.screen = pg.display.set_mode
+(screen, True, 32)
 
-retangulos = [
-    pg.Rect(20, 20, 100, 50),
-    pg.Rect(20, 90, 50, 50),
-    pg.Rect(500, 30, 80, 60)
-]
+player_image = pg.image.load('player.png').convert_alpha()
+player = pg.transform.scale(player_image, (50, 75))
 
-while True:
+moving_right = False
+moving_left = False
+@dataclass
+class PlayerLocation:
+    x: int 
+    y: int
+
+player_location = PlayerLocation(x=155, y=125)
+velocity = 3.5
+FPS = 60
+running = True
+while running:
     screen.fill(BLACK)
+    screen.blit(player,(player_location.x, player_location.y))
+    
+    if moving_right:
+        player_location.x += velocity
+    if moving_left:
+        player_location.x -= velocity        
     for event in pg.event.get():
         if event.type == pg.QUIT:
-            exit()
+            running = False
 
-    for retangulo in retangulos:
-        pg.draw.rect(screen, BLUE, retangulo)
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_RIGHT:
+               moving_left = True
+            if event.key == pg.K_LEFT:
+                moving_right = True
 
-    pg.draw.rect(screen, GREEN, [115, 280, 70, 40])
-    pg.draw.rect(screen, RED, [115, 280, 71, 41], 2)
-    pg.draw.circle(screen, YELLOW, (325,70), 30)
-    pg.draw.circle(screen, BLUE, [250, 250], 25, True)
-    pg.draw.ellipse(screen, WHITE, (250, 300, 100, 100))
-    pg.draw.arc(screen, RED, [430, 150, 150, 125], pi/100, 1.13*pi, 2)
-    pg.draw.line(screen, BLUE, (0, height-100), (width, height-100), 5)
-    pg.draw.aaline(screen, GREEN, (0, height-200), (width, height-200))
-    pg.draw.lines(screen, WHITE, False, [[400, 400], [400, 20], [200, 20]], 2)
-    pg.draw.polygon(screen, YELLOW, [[140, 120], [100, 200], [300, 200]])
-    pg.draw.polygon(screen, GREEN, [[140, 120], [100, 200], [300,200]])
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_RIGHT:
+                moving_right = False
+            if event.key == pg.K_LEFT:
+                moving_left = False
+    
+
+    if player_location.x < 0:
+        player_location.x = 0
+    if player_location.x + player.get_width() > width:
+        player_location.x = width - player.get_width()
+
     pg.display.update()
+    clock.tick(FPS)
+
+pg.quit()
+
+
+#retangulos = [
+#    pg.Rect(20, 20, 100, 50),
+#    pg.Rect(20, 90, 50, 50),
+#    pg.Rect(500, 30, 80, 60)
+#]
+#
+#while True:
+#    screen.fill(BLACK)
+#    for event in pg.event.get():
+#        if event.type == pg.QUIT:
+#            exit()
+#
+#    for retangulo in retangulos:
+#        pg.draw.rect(screen, BLUE, retangulo)
+#
+#    pg.draw.rect(screen, GREEN, [115, 280, 70, 40])
+#    pg.draw.rect(screen, RED, [115, 280, 71, 41], 2)
+#    pg.draw.circle(screen, YELLOW, (325,70), 30)
+#    pg.draw.circle(screen, BLUE, [250, 250], 25, True)
+#    pg.draw.ellipse(screen, WHITE, (250, 300, 100, 100))
+#    pg.draw.arc(screen, RED, [430, 150, 150, 125], pi/100, 1.13*pi, 2)
+#    pg.draw.line(screen, BLUE, (0, height-100), (width, height-100), 5)
+#    pg.draw.aaline(screen, GREEN, (0, height-200), (width, height-200))
+#    pg.draw.lines(screen, WHITE, False, [[400, 400], [400, 20], [200, 20]], 2)
+#    pg.draw.polygon(screen, YELLOW, [[140, 120], [100, 200], [300, 200]])
+#    pg.draw.polygon(screen, GREEN, [[140, 120], [100, 200], [300,200]])
+#    pg.display.update()
